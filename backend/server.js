@@ -2,7 +2,7 @@
 require("dotenv").config();
 
 // Web server config
-const PORT = process.env.PORT || 8080;
+const PORT = 8080;
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
@@ -27,15 +27,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Separated Routes for each Resource
-// const route = require("./routes/users");
+const employeeRoute = require("./routes/employees");
 
 // Mount all resource routes
-// app.use("/api/route", route(db));
+app.use("/employees", employeeRoute(db));
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
 app.get("/", (req, res) => {
     res.render("index");
 });
