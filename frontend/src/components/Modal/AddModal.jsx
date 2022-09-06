@@ -49,7 +49,7 @@ const AddModal = ({ employees, setEmployees, isOpen, onClose }) => {
                 isOpen={isOpen}
                 onClose={onClose}
             >
-                <ModalOverlay />
+                <ModalOverlay backgroundColor="white" />
                 <ModalContent>
                     <ModalHeader>Add Employee</ModalHeader>
                     <ModalCloseButton />
@@ -89,7 +89,7 @@ const AddModal = ({ employees, setEmployees, isOpen, onClose }) => {
                         </HStack>
 
                         <HStack mt="1em">
-                            <p>Salary:</p>
+                            <p>Yearly Salary:</p>
                             <Editable
                                 width="70%"
                                 display="flex"

@@ -7,6 +7,7 @@ const UpdateButton = ({
     employees,
     setEmployees,
     onClose,
+    setModalState,
 }) => {
     async function onUpdateHandler(id) {
         const employeeId = id;
@@ -35,6 +36,7 @@ const UpdateButton = ({
             );
 
             setEmployees(newEmployeeList);
+            setModalState("None");
             onClose();
         } catch (err) {
             console.log(err);
@@ -45,7 +47,7 @@ const UpdateButton = ({
         <>
             <Button
                 colorScheme="teal"
-                size="sm"
+                size="md"
                 onClick={() => onUpdateHandler(id)}
             >
                 Update

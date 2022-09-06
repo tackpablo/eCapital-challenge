@@ -37,7 +37,7 @@ const SaveButton = ({
         <>
             <Button
                 colorScheme="teal"
-                size="sm"
+                size="md"
                 onClick={() => onSaveHandler()}
             >
                 Save

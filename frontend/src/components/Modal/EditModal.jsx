@@ -21,18 +21,14 @@ const EditModal = ({
     setEmployees,
     isOpen,
     onClose,
-    selectedEmployee,
+    setModalState,
 }) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
-    const employeeId = selectedEmployee;
-    console.log("SELECTED EMPLOYEE: ", selectedEmployee);
-    console.log("EMPLOYEEID: ", employeeId);
     const employeeInfo = employees.filter((employee) => {
-        return employee.id === employeeId;
+        return employee.id === id;
     });
-    console.log("EMPLOYEEINFO: ", employeeInfo);
 
     const defaultEmployeeObj = {
         firstName: employeeInfo[0].first_name,
@@ -40,7 +36,7 @@ const EditModal = ({
         salary: employeeInfo[0].salary / 1000000,
     };
 
-    console.log(defaultEmployeeObj);
+    // console.log(defaultEmployeeObj);
     const [editFormValues, setEditFormValues] =
         React.useState(defaultEmployeeObj);
 
@@ -65,9 +61,9 @@ const EditModal = ({
                 isOpen={isOpen}
                 onClose={onClose}
             >
-                <ModalOverlay />
+                <ModalOverlay backgroundColor="white" />
                 <ModalContent>
-                    <ModalHeader>Edit Employee</ModalHeader>
+                    <ModalHeader>Add Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <HStack mt="1em">
@@ -105,7 +101,7 @@ const EditModal = ({
                         </HStack>
 
                         <HStack mt="1em">
-                            <p>Salary:</p>
+                            <p>Yearly Salary:</p>
                             <Editable
                                 width="70%"
                                 display="flex"
@@ -129,6 +125,7 @@ const EditModal = ({
                             employees={employees}
                             editFormValues={editFormValues}
                             setEmployees={setEmployees}
+                            setModalState={setModalState}
                         />
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>

@@ -14,6 +14,8 @@ const AddButton = ({
     function onClickHandler() {
         onOpen();
         setModalState("Add");
+
+        console.log("MODAL STATE: ", modalState);
     }
 
     return (
@@ -28,7 +30,7 @@ const AddButton = ({
                 New
             </Button>
 
-            {modalState === "Add" && (
+            {modalState && modalState === "Add" && (
                 <AddModal
                     employees={employees}
                     setEmployees={setEmployees}

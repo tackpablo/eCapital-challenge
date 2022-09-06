@@ -8,6 +8,7 @@ import {
     Th,
     TableContainer,
     Center,
+    Heading,
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
 import AddButton from "../Buttons/AddButton";
@@ -36,8 +37,8 @@ const EmployeeList = ({
     return (
         <Center h="100vh" w="100vw">
             <Container centerContent>
+                <Heading marginRight="1em">Employee List</Heading>
                 <AddButton
-                    justify="right"
                     employees={employees}
                     setEmployees={setEmployees}
                     isOpen={isOpen}
