@@ -33,7 +33,8 @@ module.exports = (db) => {
     router.put("/:id", (req, res) => {
         const { id } = req.params;
         const { first_name, last_name, salary } = req.body;
-        const queryParams = [first_name, last_name, salary, id];
+        const formatSalary = salary * 1000000;
+        const queryParams = [first_name, last_name, formatSalary, id];
         const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4`;
 
         db.query(queryStr, queryParams, (error, results) => {
@@ -47,7 +48,8 @@ module.exports = (db) => {
     // POST: ADD --- ADD NEW EMPLOYEE
     router.post("/", (req, res) => {
         const { first_name, last_name, salary } = req.body;
-        const queryParams = [first_name, last_name, salary];
+        const formatSalary = salary * 1000000;
+        const queryParams = [first_name, last_name, formatSalary];
         const queryStr = `INSERT INTO employees (first_name, last_name, salary) VALUES ($1, $2, $3) RETURNING *;`;
 
         db.query(queryStr, queryParams, (error, results) => {

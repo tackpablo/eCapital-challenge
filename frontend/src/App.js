@@ -24,13 +24,23 @@ function App() {
         }
     }
 
+    async function handleEditEvent() {}
+
+    async function handleDeleteEvent(id) {}
+
     return (
         <div className="App">
             <Router>
                 <Routes>
                     <Route
                         path="/"
-                        element={<EmployeeList employees={employees} />}
+                        element={
+                            <EmployeeList
+                                employees={employees}
+                                onEdit={handleEditEvent}
+                                onDelete={handleDeleteEvent}
+                            />
+                        }
                     />
                 </Routes>
             </Router>
