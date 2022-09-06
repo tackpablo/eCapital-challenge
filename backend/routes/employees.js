@@ -33,9 +33,7 @@ module.exports = (db) => {
     router.put("/:id", async (req, res) => {
         const { id } = req.params;
         const employeeId = Number(id);
-        const first_name = req.body.firstName;
-        const last_name = req.body.lastName;
-        const salary = req.body.salary;
+        const { first_name, last_name, salary } = req.body.firstName;
         const formatSalary = salary * 1000000;
         const queryParams = [first_name, last_name, formatSalary, employeeId];
         const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4 RETURNING *`;

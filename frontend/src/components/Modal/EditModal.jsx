@@ -13,54 +13,45 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
+import { useDisclosure } from "@chakra-ui/react";
 import UpdateButton from "../Buttons/UpdateButton";
 import { employeesContext } from "../../Providers/EmployeesProvider";
+import EditButton from "../Buttons/EditButton";
 
-const EditModal = ({
-    id,
-
-    isOpen,
-    onClose,
-    setModalState,
-}) => {
-    const { employees, setEmployees } = useContext(employeesContext);
+const EditModal = ({ id }) => {
+    const { employees } = useContext(employeesContext);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
-    const employeeInfo = employees.filter((employee) => {
+    const employeeInfo = employees.find((employee) => {
         return employee.id === id;
     });
-    console.log("EMPLOYEE INFO: ", employeeInfo);
 
-    const defaultEmployeeObj = {
-        firstName: employeeInfo[0].first_name,
-        lastName: employeeInfo[0].last_name,
-        salary: employeeInfo[0].salary / 1000000,
-    };
-
-    console.log("DEFAULT EMPLOYEE OBJ: ", defaultEmployeeObj);
-    const [editFormValues, setEditFormValues] =
-        React.useState(defaultEmployeeObj);
+    const [editFormValues, setEditFormValues] = React.useState(employeeInfo);
 
     function handleFirstNameChange(event) {
-        setEditFormValues({ ...editFormValues, firstName: event.target.value });
+        console.log(event.target.value);
+        setEditFormValues({
+            ...editFormValues,
+            first_name: event.target.value,
+        });
     }
 
     function handleLastNameChange(event) {
-        setEditFormValues({ ...editFormValues, lastName: event.target.value });
+        setEditFormValues({ ...editFormValues, last_name: event.target.value });
     }
 
     function handleSalaryChange(event) {
         setEditFormValues({ ...editFormValues, salary: event.target.value });
     }
 
-    function onCloseHandler() {
-        setEditFormValues(null);
-    }
-
     return (
         <>
+            <Button onClick={onOpen} colorScheme="teal" size="sm">
+                Open Modal
+            </Button>
             <Modal
                 initialFocusRef={initialRef}
                 finalFocusRef={finalRef}
@@ -79,7 +70,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="First Name"
-                                value={editFormValues.firstName}
+                                value={editFormValues.first_name}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -96,7 +87,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Last Name"
-                                value={editFormValues.lastName}
+                                value={editFormValues.last_name}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -113,7 +104,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Salary"
-                                value={editFormValues.salary}
+                                value={editFormValues.salary / 100000}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -130,10 +121,8 @@ const EditModal = ({
                             onClose={onClose}
                             employees={employees}
                             editFormValues={editFormValues}
-                            setEmployees={setEmployees}
-                            setModalState={setModalState}
                         />
-                        <Button onClick={onCloseHandler}>Cancel</Button>
+                        <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

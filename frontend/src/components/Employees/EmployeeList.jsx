@@ -14,13 +14,7 @@ import EmployeeListItem from "./EmployeeListItem";
 import AddButton from "../Buttons/AddButton";
 import { employeesContext } from "../../Providers/EmployeesProvider";
 
-const EmployeeList = ({
-    isOpen,
-    onOpen,
-    onClose,
-    modalState,
-    setModalState,
-}) => {
+const EmployeeList = ({ isOpen, onOpen, onClose }) => {
     const { employees, setEmployees } = useContext(employeesContext);
 
     const employeesColumn = [
@@ -45,8 +39,6 @@ const EmployeeList = ({
                     isOpen={isOpen}
                     onOpen={onOpen}
                     onClose={onClose}
-                    modalState={modalState}
-                    setModalState={setModalState}
                 />
                 <TableContainer borderWidth="1px" borderRadius="lg" maxW="8xl">
                     <Table variant="simple" size="lg">
@@ -60,8 +52,6 @@ const EmployeeList = ({
                                 isOpen={isOpen}
                                 onOpen={onOpen}
                                 onClose={onClose}
-                                modalState={modalState}
-                                setModalState={setModalState}
                             />
                         </Tbody>
                     </Table>

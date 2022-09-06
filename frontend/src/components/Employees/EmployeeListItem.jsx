@@ -3,15 +3,10 @@ import { Td, Tr } from "@chakra-ui/react";
 import EditButton from "../Buttons/EditButton";
 import DeleteButton from "../Buttons/DeleteButton";
 import { employeesContext } from "../../Providers/EmployeesProvider";
+import EditModal from "../Modal/EditModal";
 
-const EmployeeListItem = ({
-    isOpen,
-    onOpen,
-    onClose,
-    modalState,
-    setModalState,
-}) => {
-    const { employees, setEmployees } = useContext(employeesContext);
+const EmployeeListItem = () => {
+    const { employees } = useContext(employeesContext);
 
     const employeeList = employees?.map((employee) => {
         const salaryFormat = new Intl.NumberFormat("en-US", {
@@ -25,23 +20,10 @@ const EmployeeListItem = ({
                 <Td>{employee.last_name}</Td>
                 <Td>{salaryFormat.format(employee.salary / 1000000)}</Td>
                 <Td>
-                    <EditButton
-                        id={employee.id}
-                        employees={employees}
-                        setEmployees={setEmployees}
-                        isOpen={isOpen}
-                        onOpen={onOpen}
-                        onClose={onClose}
-                        modalState={modalState}
-                        setModalState={setModalState}
-                    />
+                    <EditModal id={employee.id} />
                 </Td>
                 <Td>
-                    <DeleteButton
-                        id={employee.id}
-                        employees={employees}
-                        setEmployees={setEmployees}
-                    />
+                    <DeleteButton id={employee.id} />
                 </Td>
             </Tr>
         );
