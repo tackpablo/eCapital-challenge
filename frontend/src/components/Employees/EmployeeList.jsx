@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
 
-const EmployeeList = ({ employees, onEdit, onDelete }) => {
+const EmployeeList = ({ employees, setEmployees }) => {
     const employeesColumn = [
         "First Name",
         "Last Name",
@@ -34,8 +34,7 @@ const EmployeeList = ({ employees, onEdit, onDelete }) => {
                     <Tbody>
                         <EmployeeListItem
                             employees={employees}
-                            onEdit={onEdit}
-                            onDelete={onDelete}
+                            setEmployees={setEmployees}
                         />
                     </Tbody>
                 </Table>

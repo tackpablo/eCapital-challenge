@@ -13,20 +13,18 @@ function App() {
     // Fetch employee list
     async function employeeList() {
         const url = "/api/employees/";
+
         try {
             const response = await fetch(url);
             const data = await response.json();
 
+            console.log("DATA: ", data);
             setEmployees(data);
             console.log("EMPLOYEES DATA RETURNED");
         } catch (err) {
             console.log("ERROR FETCHING EMPLOYEES DATA", err);
         }
     }
-
-    async function handleEditEvent() {}
-
-    async function handleDeleteEvent(id) {}
 
     return (
         <div className="App">
@@ -37,8 +35,7 @@ function App() {
                         element={
                             <EmployeeList
                                 employees={employees}
-                                onEdit={handleEditEvent}
-                                onDelete={handleDeleteEvent}
+                                setEmployees={setEmployees}
                             />
                         }
                     />

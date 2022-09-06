@@ -2,6 +2,8 @@ import * as React from "react";
 import { Button } from "@chakra-ui/react";
 
 const EditButton = ({ onEdit }) => {
+    async function handleEditEvent() {}
+
     return (
         <>
             <Button colorScheme="teal" size="sm" onClick={onEdit}>
