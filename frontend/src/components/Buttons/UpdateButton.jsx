@@ -1,30 +1,43 @@
 import * as React from "react";
 import { Button } from "@chakra-ui/react";
 
-const UpdateButton = ({ id, employees, setEmployees }) => {
+const UpdateButton = ({
+    id,
+    editFormValues,
+    employees,
+    setEmployees,
+    onClose,
+}) => {
     async function onUpdateHandler(id) {
         const employeeId = id;
-        console.log("ID: ", id);
+        const employeeData = editFormValues;
+        // console.log("ID: ", id);
+        // console.log(employeeData);
 
-        if (window.confirm(`Are you sure you want to delete employee?`)) {
-            try {
-                const url = `/api/employees/${employeeId}`;
-                const response = await fetch(url, {
-                    method: "PUT",
-                });
-                // const data = await response.json();
-                // console.log("DELETED", data);
+        try {
+            const url = `/api/employees/${employeeId}`;
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(employeeData),
+            });
+            const data = await response.json();
+            const updatedEmployee = data.results.rows;
+            // console.log("UPDATED", updatedEmployee);
 
-                const newEmployeeList = employees.filter((employee) => {
-                    return employee.id !== employeeId;
-                });
+            const newEmployeeList = employees.map(
+                (employee) =>
+                    updatedEmployee.find(
+                        (updated) => updated.id === employee.id
+                    ) || employee
+            );
 
-                setEmployees(newEmployeeList);
-            } catch (err) {
-                console.log(err);
-            }
-        } else {
-            console.log("Delete Aborted");
+            setEmployees(newEmployeeList);
+            onClose();
+        } catch (err) {
+            console.log(err);
         }
     }
 

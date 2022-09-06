@@ -32,16 +32,23 @@ module.exports = (db) => {
     // PUT/PATCH: EDIT --- UPDATE DATA FOR SPECIFIC EMPLOYEE ID
     router.put("/:id", async (req, res) => {
         const { id } = req.params;
-        const { first_name, last_name, salary } = req.body;
+        const employeeId = Number(id);
+        const first_name = req.body.firstName;
+        const last_name = req.body.lastName;
+        const salary = req.body.salary;
+        console.log("first: ", first_name);
+        console.log("last: ", last_name);
+        console.log("salary: ", salary);
         const formatSalary = salary * 1000000;
-        const queryParams = [first_name, last_name, formatSalary, id];
-        const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4`;
+        const queryParams = [first_name, last_name, formatSalary, employeeId];
+        console.log("QUERY: ", queryParams);
+        const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4 RETURNING *`;
 
         await db.query(queryStr, queryParams, (error, results) => {
             if (error) {
                 throw error;
             }
-            return res.status(200).send(`Employee modified with ID: ${id}`);
+            return res.status(200).json({ results });
         });
     });
 

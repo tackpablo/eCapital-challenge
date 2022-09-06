@@ -15,7 +15,6 @@ const EditButton = ({
 
     function onClickHandler(id) {
         const employeeId = id;
-
         onOpen();
         setSelectedEmployee(employeeId);
         setModalState(true);
@@ -33,6 +32,7 @@ const EditButton = ({
 
             {modalState === true && (
                 <EditModal
+                    id={id}
                     selectedEmployee={selectedEmployee}
                     employees={employees}
                     setEmployees={setEmployees}

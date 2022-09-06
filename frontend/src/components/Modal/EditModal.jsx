@@ -16,6 +16,7 @@ import {
 import UpdateButton from "../Buttons/UpdateButton";
 
 const EditModal = ({
+    id,
     employees,
     setEmployees,
     isOpen,
@@ -26,16 +27,16 @@ const EditModal = ({
     const finalRef = React.useRef(null);
     const employeeId = selectedEmployee;
     const employeeInfo = employees.filter((employee) => {
-        return employee.id == employeeId;
+        return employee.id === employeeId;
     });
 
     const defaultEmployeeObj = {
         firstName: employeeInfo[0].first_name,
         lastName: employeeInfo[0].last_name,
-        salary: employeeInfo[0].salary,
+        salary: employeeInfo[0].salary / 1000000,
     };
 
-    console.log(defaultEmployeeObj);
+    // console.log(defaultEmployeeObj);
     const [editFormValues, setEditFormValues] =
         React.useState(defaultEmployeeObj);
 
@@ -106,7 +107,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Employee First Name"
-                                value={editFormValues.salary / 1000000}
+                                value={editFormValues.salary}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -118,7 +119,13 @@ const EditModal = ({
                     </ModalBody>
 
                     <ModalFooter>
-                        <UpdateButton />
+                        <UpdateButton
+                            id={id}
+                            onClose={onClose}
+                            employees={employees}
+                            editFormValues={editFormValues}
+                            setEmployees={setEmployees}
+                        />
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
