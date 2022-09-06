@@ -1,14 +1,10 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
-const UpdateButton = ({
-    id,
-    editFormValues,
-    employees,
-    setEmployees,
-    onClose,
-    setModalState,
-}) => {
+const UpdateButton = ({ id, editFormValues, onClose, setModalState }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     async function onUpdateHandler(id) {
         const employeeId = id;
         const employeeData = editFormValues;

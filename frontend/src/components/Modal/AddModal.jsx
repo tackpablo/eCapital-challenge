@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
     Button,
     Editable,
@@ -14,8 +14,11 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import SaveButton from "../Buttons/SaveButton";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
-const AddModal = ({ employees, setEmployees, isOpen, onClose }) => {
+const AddModal = ({ isOpen, onClose }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 

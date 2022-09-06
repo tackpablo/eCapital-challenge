@@ -1,14 +1,15 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const SaveButton = ({
-    employees,
-    setEmployees,
     newFormValues,
     onClose,
     defaultEmployeeObj,
     setNewFormValues,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     async function onSaveHandler() {
         const newEmployee = newFormValues;
 

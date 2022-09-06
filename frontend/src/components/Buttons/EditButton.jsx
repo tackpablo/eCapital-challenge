@@ -1,17 +1,18 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import EditModal from "../Modal/EditModal";
 import { Button } from "@chakra-ui/react";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const EditButton = ({
     id,
-    employees,
-    setEmployees,
     isOpen,
     onOpen,
     onClose,
     modalState,
     setModalState,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     function onClickHandler() {
         onOpen();
         setModalState("Edit");

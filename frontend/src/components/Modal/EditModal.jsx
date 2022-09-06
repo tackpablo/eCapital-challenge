@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
     Button,
     Editable,
@@ -14,21 +14,24 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import UpdateButton from "../Buttons/UpdateButton";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const EditModal = ({
     id,
-    employees,
-    setEmployees,
+
     isOpen,
     onClose,
     setModalState,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
     const employeeInfo = employees.filter((employee) => {
         return employee.id === id;
     });
+    console.log("EMPLOYEE INFO: ", employeeInfo);
 
     const defaultEmployeeObj = {
         firstName: employeeInfo[0].first_name,
@@ -36,12 +39,11 @@ const EditModal = ({
         salary: employeeInfo[0].salary / 1000000,
     };
 
-    // console.log(defaultEmployeeObj);
+    console.log("DEFAULT EMPLOYEE OBJ: ", defaultEmployeeObj);
     const [editFormValues, setEditFormValues] =
         React.useState(defaultEmployeeObj);
 
     function handleFirstNameChange(event) {
-        console.log(event.target.value);
         setEditFormValues({ ...editFormValues, firstName: event.target.value });
     }
 
@@ -51,6 +53,10 @@ const EditModal = ({
 
     function handleSalaryChange(event) {
         setEditFormValues({ ...editFormValues, salary: event.target.value });
+    }
+
+    function onCloseHandler() {
+        setEditFormValues(null);
     }
 
     return (
@@ -127,7 +133,7 @@ const EditModal = ({
                             setEmployees={setEmployees}
                             setModalState={setModalState}
                         />
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onCloseHandler}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
