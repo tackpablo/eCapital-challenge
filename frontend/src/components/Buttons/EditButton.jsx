@@ -9,15 +9,16 @@ const EditButton = ({
     isOpen,
     onOpen,
     onClose,
+    modalState,
+    setModalState,
 }) => {
-    const [modalState, setModalState] = React.useState(false);
-    const [selectedEmployee, setSelectedEmployee] = React.useState("");
+    const [selectedEmployee, setSelectedEmployee] = React.useState(null);
 
-    function onClickHandler(id) {
+    function editHandler(id) {
         const employeeId = id;
         onOpen();
+        setModalState("Edit");
         setSelectedEmployee(employeeId);
-        setModalState(true);
     }
 
     return (
@@ -25,12 +26,12 @@ const EditButton = ({
             <Button
                 colorScheme="teal"
                 size="sm"
-                onClick={() => onClickHandler(id)}
+                onClick={() => editHandler(id)}
             >
                 Edit
             </Button>
 
-            {modalState === true && (
+            {modalState === "Edit" && (
                 <EditModal
                     id={id}
                     selectedEmployee={selectedEmployee}

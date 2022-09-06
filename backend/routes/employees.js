@@ -36,12 +36,8 @@ module.exports = (db) => {
         const first_name = req.body.firstName;
         const last_name = req.body.lastName;
         const salary = req.body.salary;
-        console.log("first: ", first_name);
-        console.log("last: ", last_name);
-        console.log("salary: ", salary);
         const formatSalary = salary * 1000000;
         const queryParams = [first_name, last_name, formatSalary, employeeId];
-        console.log("QUERY: ", queryParams);
         const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4 RETURNING *`;
 
         await db.query(queryStr, queryParams, (error, results) => {
@@ -54,7 +50,9 @@ module.exports = (db) => {
 
     // POST: ADD --- ADD NEW EMPLOYEE
     router.post("/", async (req, res) => {
-        const { first_name, last_name, salary } = req.body;
+        const first_name = req.body.firstName;
+        const last_name = req.body.lastName;
+        const salary = req.body.salary;
         const formatSalary = salary * 1000000;
         const queryParams = [first_name, last_name, formatSalary];
         const queryStr = `INSERT INTO employees (first_name, last_name, salary) VALUES ($1, $2, $3) RETURNING *;`;
@@ -63,9 +61,8 @@ module.exports = (db) => {
             if (error) {
                 throw error;
             }
-            return res
-                .status(201)
-                .send(`Employee added with ID: ${results.rows[0].id}`);
+            console.log("RESULTS: ", results);
+            return res.status(200).json({ results });
         });
     });
 

@@ -5,6 +5,7 @@ import EmployeeList from "./components/Employees/EmployeeList";
 
 function App() {
     const [employees, setEmployees] = useState();
+    const [modalState, setModalState] = useState("None");
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Initialize employee list on load
@@ -29,24 +30,24 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <EmployeeList
-                                employees={employees}
-                                setEmployees={setEmployees}
-                                isOpen={isOpen}
-                                onOpen={onOpen}
-                                onClose={onClose}
-                            />
-                        }
-                    />
-                </Routes>
-            </Router>
-        </div>
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <EmployeeList
+                            employees={employees}
+                            setEmployees={setEmployees}
+                            isOpen={isOpen}
+                            onOpen={onOpen}
+                            onClose={onClose}
+                            modalState={modalState}
+                            setModalState={setModalState}
+                        />
+                    }
+                />
+            </Routes>
+        </Router>
     );
 }
 
