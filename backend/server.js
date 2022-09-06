@@ -27,7 +27,7 @@ app.use(express.static("public"));
 const employeeRoute = require("./routes/employees");
 
 // Mount all resource routes
-app.use("/employees", employeeRoute(db));
+app.use("/api/employees", employeeRoute(db));
 
 // Home page
 app.get("/", (req, res) => {
