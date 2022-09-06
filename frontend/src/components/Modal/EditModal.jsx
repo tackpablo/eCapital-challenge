@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
     Button,
     Editable,
@@ -14,25 +14,24 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import UpdateButton from "../Buttons/UpdateButton";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const EditModal = ({
     id,
-    employees,
-    setEmployees,
+
     isOpen,
     onClose,
-    selectedEmployee,
+    setModalState,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
-    const employeeId = selectedEmployee;
-    console.log("SELECTED EMPLOYEE: ", selectedEmployee);
-    console.log("EMPLOYEEID: ", employeeId);
     const employeeInfo = employees.filter((employee) => {
-        return employee.id === employeeId;
+        return employee.id === id;
     });
-    console.log("EMPLOYEEINFO: ", employeeInfo);
+    console.log("EMPLOYEE INFO: ", employeeInfo);
 
     const defaultEmployeeObj = {
         firstName: employeeInfo[0].first_name,
@@ -40,12 +39,11 @@ const EditModal = ({
         salary: employeeInfo[0].salary / 1000000,
     };
 
-    console.log(defaultEmployeeObj);
+    console.log("DEFAULT EMPLOYEE OBJ: ", defaultEmployeeObj);
     const [editFormValues, setEditFormValues] =
         React.useState(defaultEmployeeObj);
 
     function handleFirstNameChange(event) {
-        console.log(event.target.value);
         setEditFormValues({ ...editFormValues, firstName: event.target.value });
     }
 
@@ -57,6 +55,10 @@ const EditModal = ({
         setEditFormValues({ ...editFormValues, salary: event.target.value });
     }
 
+    function onCloseHandler() {
+        setEditFormValues(null);
+    }
+
     return (
         <>
             <Modal
@@ -65,9 +67,9 @@ const EditModal = ({
                 isOpen={isOpen}
                 onClose={onClose}
             >
-                <ModalOverlay />
+                <ModalOverlay backgroundColor="white" />
                 <ModalContent>
-                    <ModalHeader>Edit Employee</ModalHeader>
+                    <ModalHeader>Add Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <HStack mt="1em">
@@ -105,7 +107,7 @@ const EditModal = ({
                         </HStack>
 
                         <HStack mt="1em">
-                            <p>Salary:</p>
+                            <p>Yearly Salary:</p>
                             <Editable
                                 width="70%"
                                 display="flex"
@@ -129,8 +131,9 @@ const EditModal = ({
                             employees={employees}
                             editFormValues={editFormValues}
                             setEmployees={setEmployees}
+                            setModalState={setModalState}
                         />
-                        <Button onClick={onClose}>Cancel</Button>
+                        <Button onClick={onCloseHandler}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

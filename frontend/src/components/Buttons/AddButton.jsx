@@ -1,16 +1,11 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
 import AddModal from "../Modal/AddModal";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
-const AddButton = ({
-    employees,
-    setEmployees,
-    isOpen,
-    onOpen,
-    onClose,
-    modalState,
-    setModalState,
-}) => {
+const AddButton = ({ isOpen, onOpen, onClose, modalState, setModalState }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     function onClickHandler() {
         onOpen();
         setModalState("Add");
@@ -28,7 +23,7 @@ const AddButton = ({
                 New
             </Button>
 
-            {modalState === "Add" && (
+            {modalState && modalState === "Add" && (
                 <AddModal
                     employees={employees}
                     setEmployees={setEmployees}

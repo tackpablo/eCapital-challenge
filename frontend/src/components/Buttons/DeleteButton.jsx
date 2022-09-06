@@ -1,8 +1,11 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { IconButton } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
-const DeleteButton = ({ id, employees, setEmployees }) => {
+const DeleteButton = ({ id }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     async function handleDeleteEvent(id) {
         const employeeId = id;
         console.log("ID: ", id);

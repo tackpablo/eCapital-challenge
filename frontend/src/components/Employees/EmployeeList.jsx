@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import {
     Container,
     Table,
@@ -8,19 +8,21 @@ import {
     Th,
     TableContainer,
     Center,
+    Heading,
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
 import AddButton from "../Buttons/AddButton";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const EmployeeList = ({
-    employees,
-    setEmployees,
     isOpen,
     onOpen,
     onClose,
     modalState,
     setModalState,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     const employeesColumn = [
         "First Name",
         "Last Name",
@@ -36,8 +38,8 @@ const EmployeeList = ({
     return (
         <Center h="100vh" w="100vw">
             <Container centerContent>
+                <Heading marginRight="1em">Employee List</Heading>
                 <AddButton
-                    justify="right"
                     employees={employees}
                     setEmployees={setEmployees}
                     isOpen={isOpen}

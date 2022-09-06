@@ -1,17 +1,18 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Td, Tr } from "@chakra-ui/react";
 import EditButton from "../Buttons/EditButton";
 import DeleteButton from "../Buttons/DeleteButton";
+import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const EmployeeListItem = ({
-    employees,
-    setEmployees,
     isOpen,
     onOpen,
     onClose,
     modalState,
     setModalState,
 }) => {
+    const { employees, setEmployees } = useContext(employeesContext);
+
     const employeeList = employees?.map((employee) => {
         const salaryFormat = new Intl.NumberFormat("en-US", {
             style: "currency",
