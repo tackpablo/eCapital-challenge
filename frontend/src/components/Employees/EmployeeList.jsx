@@ -11,7 +11,13 @@ import {
 import EmployeeListItem from "./EmployeeListItem";
 
 const EmployeeList = ({ employees }) => {
-    const employeesColumn = ["First Name", "Last Name", "Salary"];
+    const employeesColumn = [
+        "First Name",
+        "Last Name",
+        "Salary",
+        "Edit",
+        "Delete",
+    ];
 
     const employeesHeader = employeesColumn.map((column, index) => {
         return <Th key={index}>{column}</Th>;
