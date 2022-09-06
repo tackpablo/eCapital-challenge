@@ -13,6 +13,7 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
+import UpdateButton from "../Buttons/UpdateButton";
 
 const EditModal = ({
     employees,
@@ -23,21 +24,33 @@ const EditModal = ({
 }) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
-
     const employeeId = selectedEmployee;
-
     const employeeInfo = employees.filter((employee) => {
         return employee.id == employeeId;
     });
 
-    console.log("ALL EMPLOYEES: ", employees);
-    console.log("FILTERED EMPLOYEES: ", employeeInfo);
+    const defaultEmployeeObj = {
+        firstName: employeeInfo[0].first_name,
+        lastName: employeeInfo[0].last_name,
+        salary: employeeInfo[0].salary,
+    };
 
-    function handleFirstNameChange(e) {}
+    console.log(defaultEmployeeObj);
+    const [editFormValues, setEditFormValues] =
+        React.useState(defaultEmployeeObj);
 
-    function handleLastNameChange(e) {}
+    function handleFirstNameChange(event) {
+        console.log(event.target.value);
+        setEditFormValues({ ...editFormValues, firstName: event.target.value });
+    }
 
-    function handleSalaryChange(e) {}
+    function handleLastNameChange(event) {
+        setEditFormValues({ ...editFormValues, lastName: event.target.value });
+    }
+
+    function handleSalaryChange(event) {
+        setEditFormValues({ ...editFormValues, salary: event.target.value });
+    }
 
     return (
         <>
@@ -59,7 +72,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Employee First Name"
-                                value={employeeInfo[0].first_name}
+                                value={editFormValues.firstName}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -76,7 +89,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Employee First Name"
-                                value={employeeInfo[0].last_name}
+                                value={editFormValues.lastName}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -93,7 +106,7 @@ const EditModal = ({
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Employee First Name"
-                                value={employeeInfo[0].salary / 1000000}
+                                value={editFormValues.salary / 1000000}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -105,9 +118,7 @@ const EditModal = ({
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3}>
-                            Save
-                        </Button>
+                        <UpdateButton />
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>

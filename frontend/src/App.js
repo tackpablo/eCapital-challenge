@@ -20,9 +20,9 @@ function App() {
             const response = await fetch(url);
             const data = await response.json();
 
-            console.log("DATA: ", data);
+            // console.log("DATA: ", data);
             setEmployees(data);
-            console.log("EMPLOYEES DATA RETURNED");
+            // console.log("EMPLOYEES DATA RETURNED");
         } catch (err) {
             console.log("ERROR FETCHING EMPLOYEES DATA", err);
         }

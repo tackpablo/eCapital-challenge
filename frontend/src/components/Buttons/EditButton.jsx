@@ -1,6 +1,5 @@
 import * as React from "react";
 import EditModal from "../Modal/EditModal";
-// import EditModal from "../Modal/EditModal";
 import { Button } from "@chakra-ui/react";
 
 const EditButton = ({
@@ -16,7 +15,6 @@ const EditButton = ({
 
     function onClickHandler(id) {
         const employeeId = id;
-        // console.log("ID: ", employeeId);
 
         onOpen();
         setSelectedEmployee(employeeId);

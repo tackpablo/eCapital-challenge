@@ -1,9 +1,8 @@
 import * as React from "react";
-import { IconButton } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import { Button } from "@chakra-ui/react";
 
 const UpdateButton = ({ id, employees, setEmployees }) => {
-    async function handleDeleteEvent(id) {
+    async function onUpdateHandler(id) {
         const employeeId = id;
         console.log("ID: ", id);
 
@@ -11,7 +10,7 @@ const UpdateButton = ({ id, employees, setEmployees }) => {
             try {
                 const url = `/api/employees/${employeeId}`;
                 const response = await fetch(url, {
-                    method: "DELETE",
+                    method: "PUT",
                 });
                 // const data = await response.json();
                 // console.log("DELETED", data);
@@ -31,12 +30,13 @@ const UpdateButton = ({ id, employees, setEmployees }) => {
 
     return (
         <>
-            <IconButton
-                colorScheme="red"
+            <Button
+                colorScheme="teal"
                 size="sm"
-                icon={<DeleteIcon />}
-                onClick={() => handleDeleteEvent(id)}
-            />
+                onClick={() => onUpdateHandler(id)}
+            >
+                Update
+            </Button>
         </>
     );
 };
