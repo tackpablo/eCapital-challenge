@@ -1,10 +1,17 @@
 import "./App.css";
-import EmployeeList from "./components/EmployeeList";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./components/HomePage";
 
 function App() {
     return (
         <div className="App">
-            <EmployeeList />
+            <Router>
+                <div>
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                    </Routes>
+                </div>
+            </Router>
         </div>
     );
 }
