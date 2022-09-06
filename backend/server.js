@@ -2,27 +2,24 @@
 require("dotenv").config();
 
 // Web server config
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
 
 // PG database client/connection setup
 const { Pool } = require("pg");
-const db = new Pool({
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-});
+const dbParams = require("./lib/db.js");
+const db = new Pool(dbParams);
 db.connect();
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 app.use(morgan("dev"));
 
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
+// body parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
