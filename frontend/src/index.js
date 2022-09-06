@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import EmployeesProvider from "./Providers/EmployeesProvider";
+import ModalProvider from "./Providers/ModalProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <ChakraProvider>
         <EmployeesProvider>
-            <App />
+            <ModalProvider>
+                <App />
+            </ModalProvider>
         </EmployeesProvider>
     </ChakraProvider>
 );

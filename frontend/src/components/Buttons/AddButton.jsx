@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import { Button } from "@chakra-ui/react";
 import AddModal from "../Modal/AddModal";
 import { employeesContext } from "../../Providers/EmployeesProvider";
+import { modalContext } from "../../Providers/ModalProvider";
 
-const AddButton = ({ isOpen, onOpen, onClose, modalState, setModalState }) => {
+const AddButton = ({ isOpen, onOpen, onClose }) => {
     const { employees, setEmployees } = useContext(employeesContext);
+    const { modalState, setModalState } = useContext(modalContext);
 
     function onClickHandler() {
         onOpen();

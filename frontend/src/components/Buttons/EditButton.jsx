@@ -1,21 +1,19 @@
 import React, { useContext } from "react";
 import EditModal from "../Modal/EditModal";
 import { Button } from "@chakra-ui/react";
-import { employeesContext } from "../../Providers/EmployeesProvider";
+import { modalContext } from "../../Providers/ModalProvider";
 
-const EditButton = ({
-    id,
-    isOpen,
-    onOpen,
-    onClose,
-    modalState,
-    setModalState,
-}) => {
-    const { employees, setEmployees } = useContext(employeesContext);
+const EditButton = ({ id }) => {
+    const { modalState, setModalState } = useContext(modalContext);
 
-    function onClickHandler() {
-        onOpen();
+    function onClickHandler(id) {
+        // onOpen();
+        console.log("EDIT BUTTON ID: ", id);
         setModalState("Edit");
+    }
+
+    function editModal() {
+        return <EditModal id={id} />;
     }
 
     return (
@@ -23,22 +21,12 @@ const EditButton = ({
             <Button
                 colorScheme="teal"
                 size="sm"
-                onClick={() => onClickHandler()}
+                onClick={() => onClickHandler(id)}
             >
                 Edit
             </Button>
 
-            {modalState && modalState === "Edit" && (
-                <EditModal
-                    id={id}
-                    employees={employees}
-                    setEmployees={setEmployees}
-                    isOpen={isOpen}
-                    onOpen={onOpen}
-                    onClose={onClose}
-                    setModalState={setModalState}
-                />
-            )}
+            {/* {modalState && modalState === "Edit" && editModal()} */}
         </>
     );
 };
