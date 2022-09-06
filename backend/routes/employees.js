@@ -59,7 +59,6 @@ module.exports = (db) => {
             if (error) {
                 throw error;
             }
-            console.log("RESULTS: ", results);
             return res.status(200).json({ results });
         });
     });

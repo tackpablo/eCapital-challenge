@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+    Button,
     Container,
     Table,
     Thead,
@@ -11,11 +12,13 @@ import {
     Heading,
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
-import AddButton from "../Buttons/AddButton";
+import AddModal from "../Modal/AddModal";
 import { employeesContext } from "../../Providers/EmployeesProvider";
+import { modalContext } from "../../Providers/ModalProvider";
 
 const EmployeeList = ({ isOpen, onOpen, onClose }) => {
     const { employees, setEmployees } = useContext(employeesContext);
+    const { modalState, setModalState } = useContext(modalContext);
 
     const employeesColumn = [
         "First Name",
@@ -29,17 +32,33 @@ const EmployeeList = ({ isOpen, onOpen, onClose }) => {
         return <Th key={index}>{column}</Th>;
     });
 
+    function onAddHandler() {
+        onOpen();
+        setModalState("Add");
+    }
+
     return (
         <Center h="100vh" w="100vw">
             <Container centerContent>
                 <Heading marginRight="1em">Employee List</Heading>
-                <AddButton
-                    employees={employees}
-                    setEmployees={setEmployees}
-                    isOpen={isOpen}
-                    onOpen={onOpen}
-                    onClose={onClose}
-                />
+                <Button
+                    colorScheme="blue"
+                    size="md"
+                    marginBottom="0.5em"
+                    alignSelf="end"
+                    onClick={() => onAddHandler()}
+                >
+                    New
+                </Button>
+                {modalState && modalState === "Add" && (
+                    <AddModal
+                        employees={employees}
+                        setEmployees={setEmployees}
+                        isOpen={isOpen}
+                        onOpen={onOpen}
+                        onClose={onClose}
+                    />
+                )}
                 <TableContainer borderWidth="1px" borderRadius="lg" maxW="8xl">
                     <Table variant="simple" size="lg">
                         <Thead>
