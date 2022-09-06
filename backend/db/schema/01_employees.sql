@@ -1,3 +1,5 @@
+CREATE DATABASE localhost;
+
 -- Drop and recreate Employees table
 DROP TABLE IF EXISTS employees CASCADE;
 
