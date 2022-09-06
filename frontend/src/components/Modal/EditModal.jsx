@@ -25,10 +25,14 @@ const EditModal = ({
 }) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
+
     const employeeId = selectedEmployee;
+    console.log("SELECTED EMPLOYEE: ", selectedEmployee);
+    console.log("EMPLOYEEID: ", employeeId);
     const employeeInfo = employees.filter((employee) => {
         return employee.id === employeeId;
     });
+    console.log("EMPLOYEEINFO: ", employeeInfo);
 
     const defaultEmployeeObj = {
         firstName: employeeInfo[0].first_name,
@@ -36,7 +40,7 @@ const EditModal = ({
         salary: employeeInfo[0].salary / 1000000,
     };
 
-    // console.log(defaultEmployeeObj);
+    console.log(defaultEmployeeObj);
     const [editFormValues, setEditFormValues] =
         React.useState(defaultEmployeeObj);
 
@@ -72,7 +76,7 @@ const EditModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
+                                placeholder="First Name"
                                 value={editFormValues.firstName}
                             >
                                 <EditablePreview display="flex" width="full" />
@@ -89,7 +93,7 @@ const EditModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
+                                placeholder="Last Name"
                                 value={editFormValues.lastName}
                             >
                                 <EditablePreview display="flex" width="full" />
@@ -106,7 +110,7 @@ const EditModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
+                                placeholder="Salary"
                                 value={editFormValues.salary}
                             >
                                 <EditablePreview display="flex" width="full" />

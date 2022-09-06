@@ -13,44 +13,32 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
-import UpdateButton from "../Buttons/UpdateButton";
+import SaveButton from "../Buttons/SaveButton";
 
-const AddModal = ({
-    id,
-    employees,
-    setEmployees,
-    isOpen,
-    onClose,
-    selectedEmployee,
-}) => {
+const AddModal = ({ employees, setEmployees, isOpen, onClose }) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
-    const employeeId = selectedEmployee;
-    const employeeInfo = employees.filter((employee) => {
-        return employee.id === employeeId;
-    });
 
     const defaultEmployeeObj = {
-        firstName: employeeInfo[0].first_name,
-        lastName: employeeInfo[0].last_name,
-        salary: employeeInfo[0].salary / 1000000,
+        firstName: "",
+        lastName: "",
+        salary: "",
     };
 
-    // console.log(defaultEmployeeObj);
-    const [editFormValues, setEditFormValues] =
+    const [newFormValues, setNewFormValues] =
         React.useState(defaultEmployeeObj);
 
     function handleFirstNameChange(event) {
         console.log(event.target.value);
-        setEditFormValues({ ...editFormValues, firstName: event.target.value });
+        setNewFormValues({ ...newFormValues, firstName: event.target.value });
     }
 
     function handleLastNameChange(event) {
-        setEditFormValues({ ...editFormValues, lastName: event.target.value });
+        setNewFormValues({ ...newFormValues, lastName: event.target.value });
     }
 
     function handleSalaryChange(event) {
-        setEditFormValues({ ...editFormValues, salary: event.target.value });
+        setNewFormValues({ ...newFormValues, salary: event.target.value });
     }
 
     return (
@@ -63,7 +51,7 @@ const AddModal = ({
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Edit Employee</ModalHeader>
+                    <ModalHeader>Add Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <HStack mt="1em">
@@ -72,8 +60,8 @@ const AddModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
-                                value={editFormValues.firstName}
+                                placeholder="First Name"
+                                value={newFormValues.firstName}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -89,8 +77,8 @@ const AddModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
-                                value={editFormValues.lastName}
+                                placeholder="Last Name"
+                                value={newFormValues.lastName}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -106,8 +94,8 @@ const AddModal = ({
                                 width="70%"
                                 display="flex"
                                 alignItems="left"
-                                placeholder="Employee First Name"
-                                value={editFormValues.salary}
+                                placeholder="Salary"
+                                value={newFormValues.salary}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -119,12 +107,13 @@ const AddModal = ({
                     </ModalBody>
 
                     <ModalFooter>
-                        <UpdateButton
-                            id={id}
+                        <SaveButton
                             onClose={onClose}
                             employees={employees}
-                            editFormValues={editFormValues}
+                            newFormValues={newFormValues}
                             setEmployees={setEmployees}
+                            defaultEmployeeObj={defaultEmployeeObj}
+                            setNewFormValues={setNewFormValues}
                         />
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>

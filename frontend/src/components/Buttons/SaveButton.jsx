@@ -1,30 +1,35 @@
 import * as React from "react";
 import { Button } from "@chakra-ui/react";
 
-const SaveButton = ({ id, employees, setEmployees }) => {
-    async function onUpdateHandler(id) {
-        const employeeId = id;
-        console.log("ID: ", id);
+const SaveButton = ({
+    employees,
+    setEmployees,
+    newFormValues,
+    onClose,
+    defaultEmployeeObj,
+    setNewFormValues,
+}) => {
+    async function onSaveHandler() {
+        const newEmployee = newFormValues;
 
-        if (window.confirm(`Are you sure you want to delete employee?`)) {
-            try {
-                const url = `/api/employees/${employeeId}`;
-                const response = await fetch(url, {
-                    method: "DELETE",
-                });
-                // const data = await response.json();
-                // console.log("DELETED", data);
+        try {
+            const url = `/api/employees`;
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(newEmployee),
+            });
+            const data = await response.json();
+            const updatedEmployee = data.results.rows[0];
 
-                const newEmployeeList = employees.filter((employee) => {
-                    return employee.id !== employeeId;
-                });
-
-                setEmployees(newEmployeeList);
-            } catch (err) {
-                console.log(err);
-            }
-        } else {
-            console.log("Delete Aborted");
+            const newEmployeeList = [...employees, updatedEmployee];
+            setEmployees(newEmployeeList);
+            onClose();
+            setNewFormValues(defaultEmployeeObj);
+        } catch (err) {
+            console.log(err);
         }
     }
 
@@ -33,7 +38,7 @@ const SaveButton = ({ id, employees, setEmployees }) => {
             <Button
                 colorScheme="teal"
                 size="sm"
-                onClick={() => onSaveHandler(id)}
+                onClick={() => onSaveHandler()}
             >
                 Save
             </Button>

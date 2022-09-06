@@ -5,6 +5,7 @@ import EmployeeList from "./components/Employees/EmployeeList";
 
 function App() {
     const [employees, setEmployees] = useState();
+    const [modalState, setModalState] = useState("None");
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Initialize employee list on load
@@ -40,6 +41,8 @@ function App() {
                             isOpen={isOpen}
                             onOpen={onOpen}
                             onClose={onClose}
+                            modalState={modalState}
+                            setModalState={setModalState}
                         />
                     }
                 />

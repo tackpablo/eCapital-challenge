@@ -9,6 +9,8 @@ const EmployeeListItem = ({
     isOpen,
     onOpen,
     onClose,
+    modalState,
+    setModalState,
 }) => {
     const employeeList = employees?.map((employee) => {
         const salaryFormat = new Intl.NumberFormat("en-US", {
@@ -29,6 +31,8 @@ const EmployeeListItem = ({
                         isOpen={isOpen}
                         onOpen={onOpen}
                         onClose={onClose}
+                        modalState={modalState}
+                        setModalState={setModalState}
                     />
                 </Td>
                 <Td>
