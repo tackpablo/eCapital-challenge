@@ -21,7 +21,7 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static("public"));
+app.use(express.static("../frontend/public"));
 
 // Separated Routes for each Resource
 const employeeRoute = require("./routes/employees");
