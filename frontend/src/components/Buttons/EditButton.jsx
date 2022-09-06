@@ -1,27 +1,39 @@
 import * as React from "react";
 import EditModal from "../Modal/EditModal";
-// import EditModal from "../Modal/EditModal";
 import { Button } from "@chakra-ui/react";
 
-const EditButton = ({ employees, setEmployees, isOpen, onOpen, onClose }) => {
-    const initialRef = React.useRef(null);
-    const finalRef = React.useRef(null);
-
+const EditButton = ({
+    id,
+    employees,
+    setEmployees,
+    isOpen,
+    onOpen,
+    onClose,
+}) => {
     const [modalState, setModalState] = React.useState(false);
+    const [selectedEmployee, setSelectedEmployee] = React.useState("");
 
-    function onClickHandler() {
+    function onClickHandler(id) {
+        const employeeId = id;
         onOpen();
+        setSelectedEmployee(employeeId);
         setModalState(true);
     }
 
     return (
         <>
-            <Button colorScheme="teal" size="sm" onClick={onClickHandler}>
+            <Button
+                colorScheme="teal"
+                size="sm"
+                onClick={() => onClickHandler(id)}
+            >
                 Edit
             </Button>
 
             {modalState === true && (
                 <EditModal
+                    id={id}
+                    selectedEmployee={selectedEmployee}
                     employees={employees}
                     setEmployees={setEmployees}
                     isOpen={isOpen}
