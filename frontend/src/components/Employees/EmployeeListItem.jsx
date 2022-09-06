@@ -23,6 +23,7 @@ const EmployeeListItem = ({
                 <Td>{salaryFormat.format(employee.salary / 1000000)}</Td>
                 <Td>
                     <EditButton
+                        id={employee.id}
                         employees={employees}
                         setEmployees={setEmployees}
                         isOpen={isOpen}

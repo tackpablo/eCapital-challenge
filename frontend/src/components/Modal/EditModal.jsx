@@ -1,9 +1,10 @@
 import * as React from "react";
 import {
     Button,
-    FormControl,
-    FormLabel,
-    Input,
+    Editable,
+    EditableInput,
+    EditablePreview,
+    HStack,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -13,9 +14,30 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 
-const EditModal = ({ employees, setEmployees, isOpen, onClose }) => {
+const EditModal = ({
+    employees,
+    setEmployees,
+    isOpen,
+    onClose,
+    selectedEmployee,
+}) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
+
+    const employeeId = selectedEmployee;
+
+    const employeeInfo = employees.filter((employee) => {
+        return employee.id == employeeId;
+    });
+
+    console.log("ALL EMPLOYEES: ", employees);
+    console.log("FILTERED EMPLOYEES: ", employeeInfo);
+
+    function handleFirstNameChange(e) {}
+
+    function handleLastNameChange(e) {}
+
+    function handleSalaryChange(e) {}
 
     return (
         <>
@@ -30,20 +52,56 @@ const EditModal = ({ employees, setEmployees, isOpen, onClose }) => {
                     <ModalHeader>Edit Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
-                        <FormControl>
-                            <FormLabel>First name</FormLabel>
-                            <Input ref={initialRef} placeholder="First name" />
-                        </FormControl>
+                        <HStack mt="1em">
+                            <p>First Name:</p>
+                            <Editable
+                                width="70%"
+                                display="flex"
+                                alignItems="left"
+                                placeholder="Employee First Name"
+                                value={employeeInfo[0].first_name}
+                            >
+                                <EditablePreview display="flex" width="full" />
+                                <EditableInput
+                                    display="flex"
+                                    onChange={(e) => handleFirstNameChange(e)}
+                                />
+                            </Editable>
+                        </HStack>
 
-                        <FormControl mt={4}>
-                            <FormLabel>Last name</FormLabel>
-                            <Input placeholder="Last name" />
-                        </FormControl>
+                        <HStack mt="1em">
+                            <p>Last Name:</p>
+                            <Editable
+                                width="70%"
+                                display="flex"
+                                alignItems="left"
+                                placeholder="Employee First Name"
+                                value={employeeInfo[0].last_name}
+                            >
+                                <EditablePreview display="flex" width="full" />
+                                <EditableInput
+                                    display="flex"
+                                    onChange={(e) => handleLastNameChange(e)}
+                                />
+                            </Editable>
+                        </HStack>
 
-                        <FormControl mt={4}>
-                            <FormLabel>Salary</FormLabel>
-                            <Input placeholder="Salary" />
-                        </FormControl>
+                        <HStack mt="1em">
+                            <p>Salary:</p>
+                            <Editable
+                                width="70%"
+                                display="flex"
+                                alignItems="left"
+                                placeholder="Employee First Name"
+                                value={employeeInfo[0].salary / 1000000}
+                            >
+                                <EditablePreview display="flex" width="full" />
+                                <EditableInput
+                                    display="flex"
+                                    onChange={(e) => handleSalaryChange(e)}
+                                />
+                            </Editable>
+                        </HStack>
                     </ModalBody>
 
                     <ModalFooter>
