@@ -27,3 +27,20 @@
 ### Questions?
 
 Please reach out to me with any questions
+
+### Resources
+
+-   Employees
+
+### Routes
+
+-   / (Home Page)
+
+Employees
+
+-   BREAD - REQUEST-TYPE ENDPOINT - SQL
+-   BROWSE - GET /api/employees/ - SELECT
+-   READ - GET /api/employees/:id - SELECT
+-   EDIT - PUT/PATCH /api/employees/:id - UPDATE
+-   ADD - POST /api/employees/ - INSERT
+-   DELETE - DELETE /api/employees/:id - DELETE
