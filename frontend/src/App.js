@@ -15,9 +15,6 @@ function App() {
                         <EmployeeList
                             employees={employees}
                             setEmployees={setEmployees}
-                            // isOpen={isOpen}
-                            // onOpen={onOpen}
-                            // onClose={onClose}
                         />
                     }
                 />
