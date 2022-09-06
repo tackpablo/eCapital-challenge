@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useDisclosure } from "@chakra-ui/react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import EmployeeList from "./components/Employees/EmployeeList";
 
 function App() {
     const [employees, setEmployees] = useState();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     // Initialize employee list on load
     useEffect(() => {
@@ -36,6 +38,9 @@ function App() {
                             <EmployeeList
                                 employees={employees}
                                 setEmployees={setEmployees}
+                                isOpen={isOpen}
+                                onOpen={onOpen}
+                                onClose={onClose}
                             />
                         }
                     />

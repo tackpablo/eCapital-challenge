@@ -1,4 +1,9 @@
+import * as React from "react";
 import {
+    Button,
+    FormControl,
+    FormLabel,
+    Input,
     Modal,
     ModalOverlay,
     ModalContent,
@@ -8,19 +13,12 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 
-function EditModal() {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-
+const EditModal = ({ employees, setEmployees, isOpen, onClose }) => {
     const initialRef = React.useRef(null);
     const finalRef = React.useRef(null);
 
     return (
         <>
-            <Button onClick={onOpen}>Open Modal</Button>
-            <Button ml={4} ref={finalRef}>
-                I'll receive focus on close
-            </Button>
-
             <Modal
                 initialFocusRef={initialRef}
                 finalFocusRef={finalRef}
@@ -29,7 +27,7 @@ function EditModal() {
             >
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Create your account</ModalHeader>
+                    <ModalHeader>Edit Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <FormControl>
@@ -58,6 +56,6 @@ function EditModal() {
             </Modal>
         </>
     );
-}
+};
 
 export default EditModal;

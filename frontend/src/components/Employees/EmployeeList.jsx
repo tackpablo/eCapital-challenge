@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
 
-const EmployeeList = ({ employees, setEmployees }) => {
+const EmployeeList = ({ employees, setEmployees, isOpen, onOpen, onClose }) => {
     const employeesColumn = [
         "First Name",
         "Last Name",
@@ -34,6 +34,9 @@ const EmployeeList = ({ employees, setEmployees }) => {
                         <EmployeeListItem
                             employees={employees}
                             setEmployees={setEmployees}
+                            isOpen={isOpen}
+                            onOpen={onOpen}
+                            onClose={onClose}
                         />
                     </Tbody>
                 </Table>
