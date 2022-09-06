@@ -29,24 +29,22 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <Router>
-                <Routes>
-                    <Route
-                        path="/"
-                        element={
-                            <EmployeeList
-                                employees={employees}
-                                setEmployees={setEmployees}
-                                isOpen={isOpen}
-                                onOpen={onOpen}
-                                onClose={onClose}
-                            />
-                        }
-                    />
-                </Routes>
-            </Router>
-        </div>
+        <Router>
+            <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <EmployeeList
+                            employees={employees}
+                            setEmployees={setEmployees}
+                            isOpen={isOpen}
+                            onOpen={onOpen}
+                            onClose={onClose}
+                        />
+                    }
+                />
+            </Routes>
+        </Router>
     );
 }
 
