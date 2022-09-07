@@ -14,6 +14,7 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import { employeesContext } from "../../Providers/EmployeesProvider";
+import { onSaveHandler } from "../../helpers/helpers";
 
 const AddModal = ({ isOpen, onClose }) => {
     const { employees, setEmployees } = useContext(employeesContext);
@@ -31,7 +32,6 @@ const AddModal = ({ isOpen, onClose }) => {
         React.useState(defaultEmployeeObj);
 
     function handleFirstNameChange(event) {
-        console.log(event.target.value);
         setNewFormValues({ ...newFormValues, firstName: event.target.value });
     }
 
@@ -41,30 +41,6 @@ const AddModal = ({ isOpen, onClose }) => {
 
     function handleSalaryChange(event) {
         setNewFormValues({ ...newFormValues, salary: event.target.value });
-    }
-
-    async function onSaveHandler() {
-        const newEmployee = newFormValues;
-
-        try {
-            const url = `/api/employees`;
-            const response = await fetch(url, {
-                method: "POST",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(newEmployee),
-            });
-            const data = await response.json();
-            const updatedEmployee = data.results.rows[0];
-
-            const newEmployeeList = [...employees, updatedEmployee];
-            setEmployees(newEmployeeList);
-            onClose();
-            setNewFormValues(defaultEmployeeObj);
-        } catch (err) {
-            console.log(err);
-        }
     }
 
     return (
@@ -136,7 +112,16 @@ const AddModal = ({ isOpen, onClose }) => {
                         <Button
                             colorScheme="teal"
                             size="md"
-                            onClick={() => onSaveHandler()}
+                            onClick={() => {
+                                onSaveHandler(
+                                    setEmployees,
+                                    employees,
+                                    setNewFormValues,
+                                    newFormValues,
+                                    defaultEmployeeObj
+                                );
+                                onClose();
+                            }}
                         >
                             Save
                         </Button>
