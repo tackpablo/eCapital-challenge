@@ -14,12 +14,12 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import { useDisclosure } from "@chakra-ui/react";
-import UpdateButton from "../Buttons/UpdateButton";
 import { employeesContext } from "../../Providers/EmployeesProvider";
-import EditButton from "../Buttons/EditButton";
+import { modalContext } from "../../Providers/ModalProvider";
 
 const EditModal = ({ id }) => {
-    const { employees } = useContext(employeesContext);
+    const { employees, setEmployees } = useContext(employeesContext);
+    const { setModalState } = useContext(modalContext);
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const initialRef = React.useRef(null);
@@ -30,7 +30,6 @@ const EditModal = ({ id }) => {
     });
 
     const [editFormValues, setEditFormValues] = React.useState(employeeInfo);
-
     function handleFirstNameChange(event) {
         console.log(event.target.value);
         setEditFormValues({
@@ -44,13 +43,49 @@ const EditModal = ({ id }) => {
     }
 
     function handleSalaryChange(event) {
-        setEditFormValues({ ...editFormValues, salary: event.target.value });
+        const salary = Number(event.target.value);
+        setEditFormValues({
+            ...editFormValues,
+            salary,
+        });
+    }
+
+    async function onUpdateHandler(id) {
+        const employeeId = id;
+        const employeeData = editFormValues;
+
+        try {
+            const url = `/api/employees/${employeeId}`;
+            const response = await fetch(url, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(employeeData),
+            });
+            const data = await response.json();
+            const updatedEmployee = data.results.rows;
+            // console.log("UPDATED", updatedEmployee);
+
+            const newEmployeeList = employees.map(
+                (employee) =>
+                    updatedEmployee.find(
+                        (updated) => updated.id === employee.id
+                    ) || employee
+            );
+
+            setEmployees(newEmployeeList);
+            setModalState("None");
+            onClose();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
         <>
             <Button onClick={onOpen} colorScheme="teal" size="sm">
-                Open Modal
+                Edit
             </Button>
             <Modal
                 initialFocusRef={initialRef}
@@ -104,7 +139,7 @@ const EditModal = ({ id }) => {
                                 display="flex"
                                 alignItems="left"
                                 placeholder="Salary"
-                                value={editFormValues.salary / 100000}
+                                value={editFormValues.salary}
                             >
                                 <EditablePreview display="flex" width="full" />
                                 <EditableInput
@@ -116,12 +151,13 @@ const EditModal = ({ id }) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <UpdateButton
-                            id={id}
-                            onClose={onClose}
-                            employees={employees}
-                            editFormValues={editFormValues}
-                        />
+                        <Button
+                            colorScheme="teal"
+                            size="md"
+                            onClick={() => onUpdateHandler(editFormValues.id)}
+                        >
+                            Update
+                        </Button>
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>

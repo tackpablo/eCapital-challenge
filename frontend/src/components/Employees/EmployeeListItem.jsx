@@ -15,7 +15,7 @@ const EmployeeListItem = () => {
 
         async function handleDeleteEvent(id) {
             const employeeId = id;
-            console.log("ID: ", id);
+            // console.log("ID: ", id);
 
             if (window.confirm(`Are you sure you want to delete employee?`)) {
                 try {
@@ -43,7 +43,7 @@ const EmployeeListItem = () => {
             <Tr key={employee.id}>
                 <Td>{employee.first_name}</Td>
                 <Td>{employee.last_name}</Td>
-                <Td>{salaryFormat.format(employee.salary / 1000000)}</Td>
+                <Td>{salaryFormat.format(employee.salary)}</Td>
                 <Td>
                     <EditModal id={employee.id} />
                 </Td>

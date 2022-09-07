@@ -34,7 +34,7 @@ module.exports = (db) => {
         const { id } = req.params;
         const employeeId = Number(id);
         const { first_name, last_name, salary } = req.body;
-        const formatSalary = salary * 1000000;
+        const formatSalary = salary;
         const queryParams = [first_name, last_name, formatSalary, employeeId];
         const queryStr = `UPDATE employees SET first_name = $1, last_name = $2, salary = $3 WHERE id = $4 RETURNING *`;
 
@@ -51,7 +51,7 @@ module.exports = (db) => {
         const first_name = req.body.firstName;
         const last_name = req.body.lastName;
         const salary = req.body.salary;
-        const formatSalary = salary * 1000000;
+        const formatSalary = salary;
         const queryParams = [first_name, last_name, formatSalary];
         const queryStr = `INSERT INTO employees (first_name, last_name, salary) VALUES ($1, $2, $3) RETURNING *;`;
 

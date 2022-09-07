@@ -13,12 +13,12 @@ import {
 } from "@chakra-ui/react";
 import EmployeeListItem from "./EmployeeListItem";
 import AddModal from "../Modal/AddModal";
-import { employeesContext } from "../../Providers/EmployeesProvider";
+import { useDisclosure } from "@chakra-ui/react";
 import { modalContext } from "../../Providers/ModalProvider";
 
-const EmployeeList = ({ isOpen, onOpen, onClose }) => {
-    const { employees, setEmployees } = useContext(employeesContext);
+const EmployeeList = () => {
     const { modalState, setModalState } = useContext(modalContext);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     const employeesColumn = [
         "First Name",
@@ -51,13 +51,7 @@ const EmployeeList = ({ isOpen, onOpen, onClose }) => {
                     New
                 </Button>
                 {modalState && modalState === "Add" && (
-                    <AddModal
-                        employees={employees}
-                        setEmployees={setEmployees}
-                        isOpen={isOpen}
-                        onOpen={onOpen}
-                        onClose={onClose}
-                    />
+                    <AddModal isOpen={isOpen} onClose={onClose} />
                 )}
                 <TableContainer borderWidth="1px" borderRadius="lg" maxW="8xl">
                     <Table variant="simple" size="lg">
@@ -65,13 +59,7 @@ const EmployeeList = ({ isOpen, onOpen, onClose }) => {
                             <Tr>{employeesHeader}</Tr>
                         </Thead>
                         <Tbody>
-                            <EmployeeListItem
-                                employees={employees}
-                                setEmployees={setEmployees}
-                                isOpen={isOpen}
-                                onOpen={onOpen}
-                                onClose={onClose}
-                            />
+                            <EmployeeListItem />
                         </Tbody>
                     </Table>
                 </TableContainer>
