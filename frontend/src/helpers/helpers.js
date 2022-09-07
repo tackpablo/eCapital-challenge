@@ -29,11 +29,11 @@ export async function createEmployeeHandler(
 }
 
 export async function updateEmployeeHandler(
-    id,
-    editFormValues,
     employees,
+    setEmployees,
+    editFormValues,
     setModalState,
-    setEmployees
+    id
 ) {
     const employeeId = id;
     const employeeData = editFormValues;

@@ -125,11 +125,11 @@ const EditModal = ({ id }) => {
                             size="md"
                             onClick={() => {
                                 updateEmployeeHandler(
-                                    editFormValues.id,
-                                    editFormValues,
                                     employees,
+                                    setEmployees,
+                                    editFormValues,
                                     setModalState,
-                                    setEmployees
+                                    editFormValues.id
                                 );
                                 onClose();
                             }}

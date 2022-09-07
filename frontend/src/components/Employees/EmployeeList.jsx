@@ -4,7 +4,6 @@ import {
     Container,
     Table,
     Thead,
-    Tbody,
     Tr,
     Th,
     TableContainer,
@@ -21,16 +20,12 @@ const EmployeeList = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const employeesColumn = [
-        "First Name",
-        "Last Name",
-        "Salary",
+        "first_name",
+        "last_name",
+        "salary",
         "Edit",
         "Delete",
     ];
-
-    const employeesHeader = employeesColumn.map((column, index) => {
-        return <Th key={index}>{column}</Th>;
-    });
 
     function onAddHandler() {
         onOpen();
@@ -56,11 +51,19 @@ const EmployeeList = () => {
                 <TableContainer borderWidth="1px" borderRadius="lg" maxW="8xl">
                     <Table variant="simple" size="lg">
                         <Thead>
-                            <Tr>{employeesHeader}</Tr>
+                            <Tr>
+                                {employeesColumn.map((column, index) => {
+                                    return <Th key={index}>{column}</Th>;
+                                })}
+                            </Tr>
                         </Thead>
-                        <Tbody>
-                            <EmployeeListItem />
-                        </Tbody>
+
+                        <EmployeeListItem
+                            headers={employeesColumn.slice(
+                                0,
+                                employeesColumn.length - 2
+                            )}
+                        />
                     </Table>
                 </TableContainer>
             </Container>
