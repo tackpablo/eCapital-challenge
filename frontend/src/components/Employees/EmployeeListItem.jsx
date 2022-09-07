@@ -1,26 +1,33 @@
 import React, { useContext } from "react";
-import { IconButton, Td, Tr } from "@chakra-ui/react";
+import { IconButton, Td, Tr, Tbody } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { employeesContext } from "../../Providers/EmployeesProvider";
 import EditModal from "../Modal/EditModal";
 import { deleteEmployeeHandler } from "../../helpers/helpers";
 
-const EmployeeListItem = () => {
+const EmployeeListItem = ({ headers }) => {
     const { employees, setEmployees } = useContext(employeesContext);
 
-    const employeeList = employees?.map((employee) => {
+    const data = employees?.map((datum) => {
         const salaryFormat = new Intl.NumberFormat("en-US", {
             style: "currency",
             currency: "USD",
         });
 
         return (
-            <Tr key={employee.id}>
-                <Td>{employee.first_name}</Td>
-                <Td>{employee.last_name}</Td>
-                <Td>{salaryFormat.format(employee.salary)}</Td>
+            <Tr key={datum.id}>
+                {headers.map((header, index) => {
+                    if (header === "salary") {
+                        return (
+                            <Td key={index}>
+                                {salaryFormat.format(datum["salary"])}
+                            </Td>
+                        );
+                    }
+                    return <Td key={index}>{datum[header]}</Td>;
+                })}
                 <Td>
-                    <EditModal id={employee.id} />
+                    <EditModal id={datum.id} />
                 </Td>
                 <Td>
                     <IconButton
@@ -29,7 +36,7 @@ const EmployeeListItem = () => {
                         icon={<DeleteIcon />}
                         onClick={() =>
                             deleteEmployeeHandler(
-                                employee.id,
+                                datum.id,
                                 employees,
                                 setEmployees
                             )
@@ -40,7 +47,7 @@ const EmployeeListItem = () => {
         );
     });
 
-    return <>{employeeList}</>;
+    return <Tbody>{data}</Tbody>;
 };
 
 export default EmployeeListItem;
