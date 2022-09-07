@@ -14,7 +14,7 @@ import {
     ModalCloseButton,
 } from "@chakra-ui/react";
 import { employeesContext } from "../../Providers/EmployeesProvider";
-import { onSaveHandler } from "../../helpers/helpers";
+import { createEmployeeHandler } from "../../helpers/helpers";
 
 const AddModal = ({ isOpen, onClose }) => {
     const { employees, setEmployees } = useContext(employeesContext);
@@ -113,7 +113,7 @@ const AddModal = ({ isOpen, onClose }) => {
                             colorScheme="teal"
                             size="md"
                             onClick={() => {
-                                onSaveHandler(
+                                createEmployeeHandler(
                                     setEmployees,
                                     employees,
                                     setNewFormValues,

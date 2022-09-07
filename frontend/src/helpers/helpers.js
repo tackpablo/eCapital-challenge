@@ -1,4 +1,4 @@
-export async function onSaveHandler(
+export async function createEmployeeHandler(
     setEmployees,
     employees,
     setNewFormValues,
@@ -28,7 +28,7 @@ export async function onSaveHandler(
     }
 }
 
-export async function onUpdateHandler(
+export async function updateEmployeeHandler(
     id,
     editFormValues,
     employees,
@@ -60,5 +60,28 @@ export async function onUpdateHandler(
         setModalState("None");
     } catch (err) {
         console.log(err);
+    }
+}
+
+export async function deleteEmployeeHandler(id, employees, setEmployees) {
+    const employeeId = id;
+
+    if (window.confirm(`Are you sure you want to delete employee?`)) {
+        try {
+            const url = `/api/employees/${employeeId}`;
+            await fetch(url, {
+                method: "DELETE",
+            });
+
+            const newEmployeeList = employees.filter((employee) => {
+                return employee.id !== employeeId;
+            });
+
+            setEmployees(newEmployeeList);
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        console.log("Delete Aborted");
     }
 }

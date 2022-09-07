@@ -3,6 +3,7 @@ import { IconButton, Td, Tr } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { employeesContext } from "../../Providers/EmployeesProvider";
 import EditModal from "../Modal/EditModal";
+import { deleteEmployeeHandler } from "../../helpers/helpers";
 
 const EmployeeListItem = () => {
     const { employees, setEmployees } = useContext(employeesContext);
@@ -12,29 +13,6 @@ const EmployeeListItem = () => {
             style: "currency",
             currency: "USD",
         });
-
-        async function handleDeleteEvent(id) {
-            const employeeId = id;
-
-            if (window.confirm(`Are you sure you want to delete employee?`)) {
-                try {
-                    const url = `/api/employees/${employeeId}`;
-                    await fetch(url, {
-                        method: "DELETE",
-                    });
-
-                    const newEmployeeList = employees.filter((employee) => {
-                        return employee.id !== employeeId;
-                    });
-
-                    setEmployees(newEmployeeList);
-                } catch (err) {
-                    console.log(err);
-                }
-            } else {
-                console.log("Delete Aborted");
-            }
-        }
 
         return (
             <Tr key={employee.id}>
@@ -49,7 +27,13 @@ const EmployeeListItem = () => {
                         colorScheme="red"
                         size="sm"
                         icon={<DeleteIcon />}
-                        onClick={() => handleDeleteEvent(employee.id)}
+                        onClick={() =>
+                            deleteEmployeeHandler(
+                                employee.id,
+                                employees,
+                                setEmployees
+                            )
+                        }
                     />
                 </Td>
             </Tr>
