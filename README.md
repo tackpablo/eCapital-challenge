@@ -1,6 +1,6 @@
 # eCapital Corp Take Home Assignment
 
-Presenting a simple Employee Table App, it is a full stack application is able to do basic CRUD functionalities.
+Presenting a simple Employee Table "App", it is a full stack application as it is able to do basic CRUD functionalities.
 
 ## 🔍 Preview
 
