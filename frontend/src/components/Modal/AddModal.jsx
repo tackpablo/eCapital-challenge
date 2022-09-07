@@ -13,7 +13,6 @@ import {
     ModalBody,
     ModalCloseButton,
 } from "@chakra-ui/react";
-import SaveButton from "../Buttons/SaveButton";
 import { employeesContext } from "../../Providers/EmployeesProvider";
 
 const AddModal = ({ isOpen, onClose }) => {
@@ -42,6 +41,30 @@ const AddModal = ({ isOpen, onClose }) => {
 
     function handleSalaryChange(event) {
         setNewFormValues({ ...newFormValues, salary: event.target.value });
+    }
+
+    async function onSaveHandler() {
+        const newEmployee = newFormValues;
+
+        try {
+            const url = `/api/employees`;
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(newEmployee),
+            });
+            const data = await response.json();
+            const updatedEmployee = data.results.rows[0];
+
+            const newEmployeeList = [...employees, updatedEmployee];
+            setEmployees(newEmployeeList);
+            onClose();
+            setNewFormValues(defaultEmployeeObj);
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     return (
@@ -110,14 +133,13 @@ const AddModal = ({ isOpen, onClose }) => {
                     </ModalBody>
 
                     <ModalFooter>
-                        <SaveButton
-                            onClose={onClose}
-                            employees={employees}
-                            newFormValues={newFormValues}
-                            setEmployees={setEmployees}
-                            defaultEmployeeObj={defaultEmployeeObj}
-                            setNewFormValues={setNewFormValues}
-                        />
+                        <Button
+                            colorScheme="teal"
+                            size="md"
+                            onClick={() => onSaveHandler()}
+                        >
+                            Save
+                        </Button>
                         <Button onClick={onClose}>Cancel</Button>
                     </ModalFooter>
                 </ModalContent>
