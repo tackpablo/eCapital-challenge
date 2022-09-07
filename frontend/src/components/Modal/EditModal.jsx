@@ -64,7 +64,7 @@ const EditModal = ({ id }) => {
             >
                 <ModalOverlay backgroundColor="white" />
                 <ModalContent>
-                    <ModalHeader>Add Employee</ModalHeader>
+                    <ModalHeader>Edit Employee</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody pb={6}>
                         <HStack mt="1em">

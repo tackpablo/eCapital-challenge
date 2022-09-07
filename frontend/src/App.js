@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import EmployeeList from "./components/Employees/EmployeeList";
+import EmployeeList from "./components/EmployeesTable/EmployeeList";
 
 function App() {
     const [modalState, setModalState] = useState("None");
