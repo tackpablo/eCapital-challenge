@@ -16,6 +16,7 @@ import {
 import { useDisclosure } from "@chakra-ui/react";
 import { employeesContext } from "../../Providers/EmployeesProvider";
 import { modalContext } from "../../Providers/ModalProvider";
+import { updateEmployeeHandler } from "../../helpers/helpers";
 
 const EditModal = ({ id }) => {
     const { employees, setEmployees } = useContext(employeesContext);
@@ -30,8 +31,8 @@ const EditModal = ({ id }) => {
     });
 
     const [editFormValues, setEditFormValues] = React.useState(employeeInfo);
+
     function handleFirstNameChange(event) {
-        console.log(event.target.value);
         setEditFormValues({
             ...editFormValues,
             first_name: event.target.value,
@@ -48,38 +49,6 @@ const EditModal = ({ id }) => {
             ...editFormValues,
             salary,
         });
-    }
-
-    async function onUpdateHandler(id) {
-        const employeeId = id;
-        const employeeData = editFormValues;
-
-        try {
-            const url = `/api/employees/${employeeId}`;
-            const response = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(employeeData),
-            });
-            const data = await response.json();
-            const updatedEmployee = data.results.rows;
-            // console.log("UPDATED", updatedEmployee);
-
-            const newEmployeeList = employees.map(
-                (employee) =>
-                    updatedEmployee.find(
-                        (updated) => updated.id === employee.id
-                    ) || employee
-            );
-
-            setEmployees(newEmployeeList);
-            setModalState("None");
-            onClose();
-        } catch (err) {
-            console.log(err);
-        }
     }
 
     return (
@@ -154,7 +123,16 @@ const EditModal = ({ id }) => {
                         <Button
                             colorScheme="teal"
                             size="md"
-                            onClick={() => onUpdateHandler(editFormValues.id)}
+                            onClick={() => {
+                                updateEmployeeHandler(
+                                    editFormValues.id,
+                                    editFormValues,
+                                    employees,
+                                    setModalState,
+                                    setEmployees
+                                );
+                                onClose();
+                            }}
                         >
                             Update
                         </Button>
